@@ -5,7 +5,7 @@ from models.Producer import Producer
 class Topic:
     name: str
     producer: Producer
-    consumers: []
+    consumers: [Consumer]
 
     def __init__(self, name, producer: Producer, consumers):
         self.name = name

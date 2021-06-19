@@ -4,8 +4,11 @@ from models.Topic import Topic
 from models.Consumer import Consumer
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
+
+Instrumentator().instrument(app).expose(app)
 
 topics = [
     Topic('1', Producer("Producer 1"), [Consumer("My consumer 1"), Consumer("My consumer 2")]),
@@ -36,7 +39,7 @@ async def get_topics():
 async def get_topic(name):
     topic = search_in_topics(name)
     if topic is None:
-        raise HTTPException(status_code=404, detail="Item not found")
+        raise HTTPException(status_code=404, detail="Topic not found")
     else:
         return JSONResponse(jsonable_encoder(topic))
 
