@@ -5,29 +5,25 @@ from models.Consumer import Consumer
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from prometheus_fastapi_instrumentator import Instrumentator
+from functional import seq
 
 app = FastAPI()
 
 Instrumentator().instrument(app).expose(app)
 
-topics = [
-    Topic('1', Producer("Producer 1"), [Consumer("My consumer 1"), Consumer("My consumer 2")]),
-    Topic('2', Producer("My producer 2"), [Consumer("My consumer 3"), Consumer("My consumer 4")])
-]
+topics = seq(
+        Topic('1', Producer("Producer 1"), [Consumer("My consumer 1"), Consumer("My consumer 2")]),
+        Topic('2', Producer("My producer 2"), [Consumer("My consumer 3"), Consumer("My consumer 4")])
+)
 
 
 def search_in_topics(name: str):
-    result = None
-    for topic in topics:
-        if topic.name == name:
-            result = topic
-            break
-    return result
+    return topics.find(lambda topic: topic.name == name)
 
 
 @app.get("/")
 async def root():
-    return {"message": len(topics)}
+    return {"message": "Hello world"}
 
 
 @app.get("/topics")
