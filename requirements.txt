@@ -1,5 +1,5 @@
 fastapi==0.65.2
 uvicorn==0.14.0
-prometheus-client==0.11.0
 prometheus-fastapi-instrumentator
 pyfunctional==1.4.3
+pyarango==1.3.5
