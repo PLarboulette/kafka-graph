@@ -9,7 +9,7 @@ from functional import seq
 from database.Database import connect, insert, get_topics,search
 
 # We connect to the database and get the collection topics which will be used to build this app
-database = connect()
+# database = connect()
 
 app = FastAPI()
 
