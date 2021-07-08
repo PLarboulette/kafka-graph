@@ -49,6 +49,7 @@ async def get_topic(name):
 @app.post("/topics")
 async def insert_topic():
     # The to_list() is necessary, otherwise the map function is not applied. Currently, I don't why, I will search after
-    topics.map(lambda topic: insert(database, topic)).to_list()
-    return search(database)
+    # topics.map(lambda topic: insert(database, topic)).to_list()
+    # return search(database)
+    return {"message": "POST Mock"}
 
